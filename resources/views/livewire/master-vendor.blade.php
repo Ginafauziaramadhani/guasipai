@@ -8,12 +8,22 @@
             {{ session('success') }}
         </div>
     @endif
+    @if (session('error'))
+        <div class="bg-red-50 border-l-4 border-red-500 p-4 text-red-700 rounded shadow-sm">
+            {{ session('error') }}
+        </div>
+    @endif
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         
         <!-- Form Tambah -->
         <div class="bg-white rounded-xl shadow-md border border-gray-100 p-6 lg:col-span-1 h-fit">
-            <h3 class="text-lg font-semibold text-gray-700 mb-4 border-b border-gray-100 pb-3">Tambah Vendor Baru</h3>
+            <div class="flex justify-between items-center mb-4 border-b border-gray-100 pb-3">
+                <h3 class="text-lg font-semibold text-gray-700">{{ $id_vendor ? 'Edit Vendor' : 'Tambah Vendor Baru' }}</h3>
+                @if($id_vendor)
+                    <button type="button" wire:click="closeModal" class="text-xs text-gray-500 hover:text-gray-700 underline">Batal Edit</button>
+                @endif
+            </div>
             <form wire:submit.prevent="simpan">
                 <div class="space-y-5">
                     <div>
@@ -50,6 +60,7 @@
                             <th class="px-6 py-4">ID</th>
                             <th class="px-6 py-4">Nama Vendor</th>
                             <th class="px-6 py-4">Alamat</th>
+                            <th class="px-6 py-4 text-center w-32">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -58,10 +69,14 @@
                             <td class="px-6 py-4 font-medium text-gray-500">#{{ $v->id_vendor }}</td>
                             <td class="px-6 py-4 font-semibold text-gray-800">{{ $v->nama_vendor }}</td>
                             <td class="px-6 py-4 text-gray-600">{{ $v->alamat }}</td>
+                            <td class="px-6 py-4 text-center space-x-2">
+                                <button wire:click="edit({{ $v->id_vendor }})" class="text-blue-500 hover:text-blue-700 font-medium">Edit</button>
+                                <button wire:click="delete({{ $v->id_vendor }})" class="text-red-500 hover:text-red-700 font-medium" onclick="confirm('Yakin ingin menghapus vendor ini?') || event.stopImmediatePropagation()">Hapus</button>
+                            </td>
                         </tr>
                         @empty
                         <tr>
-                            <td colspan="3" class="px-6 py-8 text-center text-gray-500 italic">Belum ada data vendor.</td>
+                            <td colspan="4" class="px-6 py-8 text-center text-gray-500 italic">Belum ada data vendor.</td>
                         </tr>
                         @endforelse
                     </tbody>

@@ -22,6 +22,7 @@ use App\Livewire\RegistrasiAset;
 use App\Livewire\KelolaServis;
 use App\Livewire\StockOpname;
 use App\Livewire\LaporanUnit;
+use App\Livewire\UserManagement;
 
 Route::get('/', function () {
     return view('welcome');
@@ -40,8 +41,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/dashboard/admin', AdminDashboard::class)->name('dashboard.admin');
 
         // Activity 2: Kelola Data Master (m_barang, m_unit_kerja, dll)
-        Route::get('/barang', [MasterBarangController::class, 'index'])->name('barang.index');
-        Route::post('/barang', [MasterBarangController::class, 'store'])->name('barang.store');
+        Route::get('/barang', \App\Livewire\MasterBarang::class)->name('barang.index');
         Route::get('/unit-kerja', MasterUnitKerja::class)->name('unit.index');
         Route::get('/personel', MasterPersonel::class)->name('personel.index');
         Route::get('/vendor', MasterVendor::class)->name('vendor.index');
@@ -76,6 +76,9 @@ Route::middleware('auth')->group(function () {
 
         // Activity 8: Laporan Monitoring Pimpinan
         Route::get('/laporan/dashboard', DashboardPimpinan::class)->name('laporan.dashboard');
+
+        // Manajemen User
+        Route::get('/users', UserManagement::class)->name('users.index');
     });
 
 });
