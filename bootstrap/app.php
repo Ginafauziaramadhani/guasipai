@@ -5,7 +5,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 
-return Application::configure(basePath: dirname(__DIR__))
+$app = Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
@@ -23,6 +23,10 @@ return Application::configure(basePath: dirname(__DIR__))
 $storagePath = $_SERVER['APP_STORAGE'] ?? $_ENV['APP_STORAGE'] ?? null;
 if ($storagePath) {
     $app->useStoragePath($storagePath);
+    $app->useBootstrapPath($storagePath . '/bootstrap');
+    if (!is_dir($storagePath . '/bootstrap/cache')) {
+        @mkdir($storagePath . '/bootstrap/cache', 0777, true);
+    }
 }
 
 return $app;
