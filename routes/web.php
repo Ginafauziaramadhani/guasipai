@@ -25,7 +25,7 @@ use App\Livewire\LaporanUnit;
 use App\Livewire\UserManagement;
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 // Activity 1: Login & Logout Routes
