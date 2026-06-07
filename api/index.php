@@ -1,5 +1,7 @@
 <?php
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 /**
  * Vercel Serverless Entry Point
  * Meneruskan request dari Vercel serverless function ke file public/index.php Laravel
