@@ -17,4 +17,9 @@ if (!is_dir($storage.'/logs')) mkdir($storage.'/logs', 0777, true);
 $_ENV['APP_STORAGE'] = $storage;
 $_SERVER['APP_STORAGE'] = $storage;
 
-require __DIR__ . '/../public/index.php';
+try {
+    require __DIR__ . '/../public/index.php';
+} catch (\Throwable $e) {
+    echo "<h1>Fatal Error Caught in api/index.php</h1>";
+    echo "<pre>" . (string) $e . "</pre>";
+}
