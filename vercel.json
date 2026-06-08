@@ -20,10 +20,10 @@
             "dest": "/api/index.php"
         }
     ],
-    "regions": ["sin1"],
+    "regions": ["iad1"],
     "env": {
         "APP_ENV": "production",
-        "APP_DEBUG": "true",
+        "APP_DEBUG": "false",
         "APP_URL": "https://$VERCEL_URL",
         "CACHE_STORE": "array",
         "SESSION_DRIVER": "cookie",
